@@ -5,7 +5,7 @@
     <label class=mr-2>Filtro:</label>
     <input type="text"
      class="form-control mr-2" placeholder="buscar"
-     [(ngModel)]="filterList"
+     [(ngModel)]="filtroLista"
      >
 
   </div>
@@ -16,11 +16,9 @@
       <tr>
         <th>
           <button type="button" class="btn btn-outline-light btn-sm"
-            (click)="showImage()"
-          >
+            (click)="showImage()">
+          <i class="{{!showImg? 'fa fa-eye' : 'fa fa-eye-slash'}}"></i>
           {{!showImg?'Exibir':'Ocultar'}}
-            <!-- <span *ngIf="!showImg">Mostrar</span>
-            <span *ngIf="showImg">Ocultar</span> -->
           </button>
         </th>
         <th>#</th>
@@ -39,17 +37,22 @@
            [isAnimated]="true"
            src="/assets/img/{{item.imagemUrl}}" alt=""
            [style.width.px]="widthImg"
-           [style.margin.px]="marginImg"  >
+           [style.margin.px]="marginImg" tooltip="{{item.tema | uppercase}}" >
         </td>
-        <td>{{item.eventoId}}</td>
-        <td>{{item.tema}}</td>
+        <td>{{item.id}}</td>
+        <td>{{item.tema | uppercase}}</td>
         <td>{{item.local}}</td>
-        <td>{{item.dataEvento}}</td>
+        <td>{{item.dataEvento | DTFormatPipe}}</td>
         <td>{{item.qtdPessoas}}</td>
-        <td>{{item.lote}}</td>
+        <td>{{item.lotes[0].nome}}</td>
         <td>
-          <button type="button" class="btn btn-primary btn-sm mr-2">Alterar</button>
-          <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+
+          <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Alterar">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm" tooltip="Apagar" (click)="openModal(template)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -60,3 +63,10 @@
     </tfoot>
 </table>
 
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza dessa merda?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Claro</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Nem Fu</button>
+  </div>
+</ng-template>
