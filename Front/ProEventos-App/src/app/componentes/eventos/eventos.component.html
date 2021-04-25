@@ -1,4 +1,4 @@
-<h2>Eventos</h2><hr>
+<app-titulo [titleName]="'Eventos'"></app-titulo>
 
 <div class="form-inline">
   <div class="form-group mb-2">
@@ -37,7 +37,7 @@
            [isAnimated]="true"
            src="/assets/img/{{item.imagemUrl}}" alt=""
            [style.width.px]="widthImg"
-           [style.margin.px]="marginImg" tooltip="{{item.tema | uppercase}}" >
+           [style.margin.px]="marginImg" alt="{{item.tema | uppercase}}" >
         </td>
         <td>{{item.id}}</td>
         <td>{{item.tema | uppercase}}</td>
